@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AGE-CALCULATOR</title>
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        box-sizing: border-box;
+      }
+      .container {
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(120deg, #987530, #66665421);
+      }
+      .container h1 {
+        font-size: 100px;
+        padding-top: 400px;
+        margin-left: 25%;
+        font-weight: bolder;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        line-height: 150px;
+      }
+      .container h1 span {
+        color: yellow;
+      }
+      .calculator {
+        width: 50%;
+        height: 500px;
+        margin-left: 25%;
+        margin-top: 80px;
+        background: rgba(255, 255, 255, 0.5);
+        display: flex;
+        justify-content: start;
+        align-items: center;
+      }
+      .calculator input[type="date"] {
+        font-size: 60px;
+        width: 50%;
+        height: 200px;
+        margin-left: 100px;
+        border-radius: 30px;
+      }
+      .calculator button {
+        font-size: 60px;
+        margin-left: 80px;
+        width: 20%;
+        height: 120px;
+        background-color: yellow;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      }
+
+      .calculator input::-webkit-calendar-picker-indicator {
+        font-size: 50px; /* Adjust the font size as needed */
+        padding: 10px; /* Adjust padding as needed */
+        margin: 0; /* Remove any default margin */
+        /* /* transform: scale(10.0); */
+      }
+      .calculator .para{
+        font-size: 50px;
+        padding-top: 200px;
+       font-weight: bolder;
+       font-family: Arial, Helvetica, sans-serif;
+
+         
+    
+    
+    
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>JavaScript <br /><span>Age Calculator</span></h1>
+      <div class="calculator">
+        <input type="date" class="date" />
+        <button onclick=" calculator()">Calculate</button>
+      </div>
+      <!-- <p class="para" "></p> -->
+    </div>
+    <script>
+     const dates = document.querySelector(".date");
+// const para = document.querySelector(".para");
+
+// Get today's date in the format 'YYYY-MM-DD'
+const today = new Date().toISOString().split("T")[0];
+
+// Set the max attribute for the date input
+dates.max = today;
+
+function calculator() {
+  const birthdate = new Date(dates.value);
+  const y1 = birthdate.getFullYear();
+  const m1 = birthdate.getMonth() + 1; // Adding 1 because getMonth() returns zero-based months
+  const d1 = birthdate.getDate();
+  // const sec1 = birthdate.getSeconds();
+
+  const now = new Date();
+  const y2 = now.getFullYear();
+  const m2 = now.getMonth() + 1;
+  const d2 = now.getDate();
+  const h2 = now.getHours();
+  const min1 = now.getMinutes();
+  const sec2 = now.getSeconds();
+
+  let y3, m3, d3;
+
+  if (m2 >= m1) {
+    y3 = y2 - y1;
+    m3 = m2 - m1;
+  } else {
+    // y3 = y2 - y1 - 1;
+    y3--;
+    m3 = 12 + m2 - m1;
+  }
+
+  if (d2 >= d1) {
+    d3 = d2 - d1;
+  } else {
+    m3--;
+    d3 = getDaysInMonth(y1, m1 - 1) + d2 - d1;
+  }
+ 
+
+  function getDaysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+  const resultParagraph = document.createElement("span");
+resultParagraph.innerHTML = `YOU ARE ${y3} YEARS ,${m3} MONTHS and  ${d3} DAYS , ${h2} HOURS , ${min1} MINUTES AND  ${sec2} SECONDS OLD `;
+
+// Append the paragraph to the body or any other container element
+document.querySelector('.container').appendChild(resultParagraph);
+resultParagraph.style.fontSize = "50px";
+resultParagraph.style.fontWeight = "bold";
+resultParagraph.style.color = "black";
+
+
+
+  // Display the results in the paragraph element
+//   para.innerHTML = `YOU ARE ${y3} YEARS ,${m3} MONTHS and  ${d3} DAYS old`;
+}
+        // 
+    </script>
+  </body>
+</html>
+<!-- new Date(): This creates a new JavaScript Date object representing the current date and time.
+
+toISOString(): This method converts the date to a string in ISO format (e.g., "2023-12-04T12:30:00.000Z").
+
+split(""): This splits the resulting string into an array of characters. The empty string passed as an argument to split means that each character of the string becomes a separate element in the array.
+
+[0]: This accesses the first element of the array, which corresponds to the year and month part of the ISO string. -->

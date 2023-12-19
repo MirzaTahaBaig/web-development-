@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAHA'S STOP WATCH]\</title>
+      <style>
+       *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+       }
+       body{
+         width: 100%;
+         height: 100vh;
+         background-image: url('/TASKPROJECT/AGECALCULATOR/STOP WATCH/images/background.png');
+         background-repeat: no-repeat;
+         background-size: cover;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+    
+       }
+       .container{
+       background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+        width: 40%;
+        height: 600px;
+         text-align: center;   
+    }
+    .container h2{
+        font-size: 60px;
+        padding-top: 100px;
+    }
+    .container .imgs{
+        margin-top: 80px;
+        /* border: 3px solid red; */
+    }
+    .container .imgs img{
+        padding: 70px;
+
+    }
+
+
+
+      </style>
+
+
+
+
+
+
+
+</head>
+<body>
+        <div class="container">
+            <h2 class="heading">00:00:00</h2>
+            <div class="imgs">
+                <img src="/TASKPROJECT/AGECALCULATOR/STOP WATCH/images/reset.png" alt="" id="img1" onclick="restart()">
+                <img src="/TASKPROJECT/AGECALCULATOR/STOP WATCH/images/start.png" alt="" id="img2" onclick="start()">
+                <img src="/TASKPROJECT/AGECALCULATOR/STOP WATCH/images/stop.png" alt="" id="img3" onclick="stop()">
+            </div>
+        </div>
+        <script>
+            let [seconds, minutes, hours] = [0, 0, 0];
+    let heading = document.querySelector('.heading'); // Use querySelector instead of getElementsByClassName
+    let timer = null;
+
+    function stopwatch() {
+        seconds++;
+        if (seconds == 60) {
+            seconds = 0;
+            minutes++;
+
+            if (minutes == 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+        // Use innerHTML to update the content of the heading
+        heading.innerHTML = formatTime(hours) + ":" + formatTime(minutes) + ":" + formatTime(seconds);
+        // console.log("taha");
+    }
+
+    function start() {
+        if (timer !== null) {
+            clearInterval(timer);
+        }
+        timer = setInterval(stopwatch, 1000);
+    } 
+    function formatTime(time) {
+        // Add leading zero for single-digit values
+        return time < 10 ? "0" + time : time;
+    }
+    function stop() {
+        if (timer !== null) {
+            clearInterval(timer);
+        }
+    } 
+    function restart() {
+    if (timer !== null) {
+        clearInterval(timer);
+    }
+    [seconds, minutes, hours] = [0, 0, 0];
+    heading.innerHTML = "00:00:00";
+}
+
+             
+
+
+
+        </script>
+</body>
+</html>
